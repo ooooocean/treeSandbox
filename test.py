@@ -76,3 +76,18 @@ def test_is_complete_binary():
     x.root.left.left = main.Node(4)
     x.root.left.right = main.Node(5)
     assert x.is_perfect_binary(x.root, x.calculate_height(x.root)) is False
+
+def test_count_nodes():
+    x = main.Tree()
+    x.root = main.Node(1)
+    assert x.count_nodes(x.root) == 1
+
+    x.root.left = main.Node(2)
+    assert x.count_nodes(x.root) == 2
+
+    x.root.right = main.Node(3)
+    assert x.count_nodes(x.root) == 3
+
+    x.root.left.left = main.Node(4)
+    x.root.left.right = main.Node(5)
+    assert x.count_nodes(x.root) == 5

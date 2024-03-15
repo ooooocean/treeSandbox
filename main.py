@@ -87,6 +87,11 @@ class Tree:
         # remaining scenario is where there are subtrees in both, so repeat the previous
         return self.is_perfect_binary(root.left, height, level+1) and self.is_perfect_binary(root.right, height, level+1)
 
+    def count_nodes(self, root):
+        # define terminal state
+        if root is None:
+            return 0
+        return 1 + self.count_nodes(root.left) + self.count_nodes(root.right)
 
 
 if __name__ == '__main__':

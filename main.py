@@ -122,6 +122,20 @@ class Tree:
             return self.search_binary_tree(root.right, value)
         return False
 
+    def insert_binary_tree(self, root, value):
+        # terminal state is when we reach a leaf node that is null.
+        # we then set
+        if root is None:
+            root = Node(value)
+        # logic for traversing subtrees
+        if value < root.value:
+            root.left = self.insert_binary_tree(root.left, value)
+        if value > root.value:
+            root.right = self.insert_binary_tree(root.right, value)
+
+        return root
+
+
 if __name__ == '__main__':
     # initialise a tree
     x = Tree()

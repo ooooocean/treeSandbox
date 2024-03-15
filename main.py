@@ -30,10 +30,14 @@ class Tree:
             self.inorder(root.left)
             # this recursion repeats until there is no more left subtrees
             # in this case, we will take the value out of the root
-            print(f'{root.value}->')
+            print(str(root.value) + '->', end='')
             self.inorder(root.right)
 
-
+    def preorder(self, root):
+        if root:
+            print(str(root.value) + '->', end='')
+            self.preorder(root.left)
+            self.preorder(root.right)
 
 
 if __name__ == '__main__':

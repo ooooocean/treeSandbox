@@ -1,5 +1,6 @@
 """ Implementation of Tree data structures in Python """
 import sys
+from collections import deque
 class Node:
     def __init__(self, value):
         self.value = value
@@ -23,6 +24,17 @@ class Tree:
             self.print_helper(currPtr.left, indent, False)
             self.print_helper(currPtr.right, indent, True)
 
+    def inorder(self, root):
+        # starting with the root as the input, we traverse to left subtree first
+        if root:
+            self.inorder(root.left)
+            # this recursion repeats until there is no more left subtrees
+            # in this case, we will take the value out of the root
+            print(f'{root.value}->')
+            self.inorder(root.right)
+
+
+
 
 if __name__ == '__main__':
     # initialise a tree
@@ -45,6 +57,3 @@ if __name__ == '__main__':
     second.right = fifth
     third.left = sixth
     third.right = seventh
-
-
-x.print_helper(x.root, "", True)

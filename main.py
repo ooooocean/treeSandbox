@@ -39,6 +39,11 @@ class Tree:
             self.preorder(root.left)
             self.preorder(root.right)
 
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(str(root.value) + '->', end='')
 
 if __name__ == '__main__':
     # initialise a tree

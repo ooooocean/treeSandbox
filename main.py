@@ -67,18 +67,25 @@ class Tree:
             node = node.left
         return h
 
-    def is_perfect_binary(self, root, height):
+    def is_perfect_binary(self, root, height, level=0):
         # empty tree case
         if root is None:
             return False
+        print(f'height={height}, we are at level={level} checking root of value {root.value}' )
 
-        # check for single node case
+        # check for no children. the recursion loop works through each 'layer' of the tree and if we find that the
+        # the level does not equal the height, then the leaf nodes are not all on the same level
         if root.left is None and root.right is None:
-            return True
+            print('node has no children, checking if height equals level')
+            return height == level
 
-        # recurse
-        if root.left is not None and root.right is not None:
-            return True
+        # check for if only one children. Regardless of other subtrees, this automatically fails
+        if root.left is None or root.right is None:
+            print('one child is null')
+            return False
+
+        # remaining scenario is where there are subtrees in both, so repeat the previous
+        return self.is_perfect_binary(root.left, height, level+1) and self.is_perfect_binary(root.right, height, level+1)
 
 
 

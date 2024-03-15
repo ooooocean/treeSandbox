@@ -59,6 +59,29 @@ class Tree:
 
         return False
 
+    def calculate_height(self, node):
+        # helper function to calculate height of a node in a tree, assuming tree is perfect
+        h = 0
+        while node.left is not None:
+            h += 1
+            node = node.left
+        return h
+
+    def is_perfect_binary(self, root, height):
+        # empty tree case
+        if root is None:
+            return False
+
+        # check for single node case
+        if root.left is None and root.right is None:
+            return True
+
+        # recurse
+        if root.left is not None and root.right is not None:
+            return True
+
+
+
 if __name__ == '__main__':
     # initialise a tree
     x = Tree()

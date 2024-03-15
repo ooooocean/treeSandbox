@@ -46,3 +46,18 @@ def test_is_binary_tree(full_binary_tree):
     fourth = main.Node(4)
     second.left = fourth
     assert x.is_full_binary(x.root) is False
+
+def test_calculate_height(full_binary_tree):
+    x = main.Tree()
+    first = main.Node(1)
+    x.root = first
+    assert x.calculate_height(x.root) == 0
+
+    assert full_binary_tree.calculate_height(full_binary_tree.root) == 1
+
+    second = main.Node(2)
+    first.left = second
+    third = main.Node(3)
+    second.left = third
+
+    assert x.calculate_height(x.root) == 2

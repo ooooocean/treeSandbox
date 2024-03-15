@@ -1,5 +1,48 @@
+import pytest
+
 import main
 
+def test_node():
+    first = main.Node(1)
+    assert first.value == 1
+    assert first.left is None
+    assert first.right is None
 
+def test_tree():
+    a = main.Tree()
+    assert a.root is None
 
+@pytest.fixture
+def full_binary_tree():
+    x = main.Tree()
 
+    first = main.Node(1)
+    second = main.Node(2)
+    third = main.Node(3)
+
+    # connect nodes
+    x.root = first
+    x.root.left = second
+    x.root.right = third
+
+    return x
+
+def test_is_binary_tree(full_binary_tree):
+    assert full_binary_tree.is_full_binary(full_binary_tree.root) is True
+
+    x = main.Tree()
+    first = main.Node(1)
+    x.root = first
+    assert x.is_full_binary(x.root) is True
+
+    second = main.Node(2)
+    first.left = second
+    assert x.is_full_binary(x.root) is False
+
+    third = main.Node(3)
+    first.right = third
+    assert x.is_full_binary(x.root) is True
+
+    fourth = main.Node(4)
+    second.left = fourth
+    assert x.is_full_binary(x.root) is False

@@ -45,6 +45,20 @@ class Tree:
             self.postorder(root.right)
             print(str(root.value) + '->', end='')
 
+    def is_full_binary(self, root):
+        # empty tree case
+        if root is None:
+            return True
+        # if child is not present, then return True
+        if root.left is None and root.right is None:
+            return True
+
+        # if child is present, we want to keep recursing
+        if root.left is not None and root.right is not None:
+            return self.is_full_binary(root.left) and self.is_full_binary(root.right)
+
+        return False
+
 if __name__ == '__main__':
     # initialise a tree
     x = Tree()
@@ -63,6 +77,3 @@ if __name__ == '__main__':
     x.root.left = second
     x.root.right = third
     second.left = fourth
-    second.right = fifth
-    third.left = sixth
-    third.right = seventh

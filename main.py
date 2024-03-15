@@ -114,13 +114,13 @@ class Tree:
             return None
         # match scenario
         if value == root.value:
-            return True
+            return root
         # if we don't match, then we check the value of the node we are on to see which subtree we access
         if value < root.value:
             return self.search_binary_tree(root.left, value)
         if value > root.value:
             return self.search_binary_tree(root.right, value)
-        return False
+        return None
 
     def insert_binary_tree(self, root, value):
         # terminal state is when we reach a leaf node that is null.
@@ -132,9 +132,9 @@ class Tree:
             root.left = self.insert_binary_tree(root.left, value)
         if value > root.value:
             root.right = self.insert_binary_tree(root.right, value)
-
         return root
 
+    def delete_binary_tree(self, node):
 
 if __name__ == '__main__':
     # initialise a tree

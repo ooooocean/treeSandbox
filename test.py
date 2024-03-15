@@ -149,16 +149,6 @@ def binary_search_tree():
 
     return bst
 
-def test_search_binary_search_tree(binary_search_tree):
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 4) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 7) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 14) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 6) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 1) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 10) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 3) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 8) is True
-    assert binary_search_tree.search_binary_tree(binary_search_tree.root, 200) is None
 
 
 

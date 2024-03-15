@@ -91,3 +91,42 @@ def test_count_nodes():
     x.root.left.left = main.Node(4)
     x.root.left.right = main.Node(5)
     assert x.count_nodes(x.root) == 5
+
+def test_is_complete_binary():
+    x = main.Tree()
+    x.root = main.Node(1)
+    x.root.left = main.Node(2)
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is True
+
+    x.root.right = main.Node(2)
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is True
+
+    x.root.left.left = main.Node(3)
+    x.root.left.right = main.Node(4)
+    x.root.right.left = main.Node(5)
+    x.root.right.right = None
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is True
+
+    x.root.left.left = main.Node(3)
+    x.root.left.right = main.Node(4)
+    x.root.right.left = None
+    x.root.right.right = main.Node(5)
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is False
+
+    x.root.left.left = main.Node(3)
+    x.root.left.right = None
+    x.root.right.left = main.Node(4)
+    x.root.right.right = main.Node(5)
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is False
+
+    x.root.left.left = main.Node(3)
+    x.root.left.right = None
+    x.root.right.left = main.Node(4)
+    x.root.right.right = None
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is False
+
+    x.root.left.left = main.Node(3)
+    x.root.left.right = main.Node(4)
+    x.root.right.left = None
+    x.root.right.right = None
+    assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is True

@@ -93,6 +93,21 @@ class Tree:
             return 0
         return 1 + self.count_nodes(root.left) + self.count_nodes(root.right)
 
+    def is_complete_binary(self, root, index, number_of_nodes):
+        # define terminal state when tree empty
+        if root is None:
+            return True
+        if index >= number_of_nodes:
+            # the resulting index should never exceed the number of nodes
+            return False
+        # if there is a break in children where left is none and right is not, then we break
+        if root.left is None and root.right is not None:
+            return False
+        # then, we make use of the fact that the for the ith element of the array that populates the tree,
+        # the left child has index 2i+1 and the right child has index 2i+2
+        # these can then be recursively fed in until we assign a value that is null to the input of the recursion
+        return self.is_complete_binary(root.left, 2*index + 1, number_of_nodes) and self.is_complete_binary(root.right, 2*index + 2, number_of_nodes)
+
 
 if __name__ == '__main__':
     # initialise a tree

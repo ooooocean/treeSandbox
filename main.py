@@ -108,18 +108,19 @@ class Tree:
         # these can then be recursively fed in until we assign a value that is null to the input of the recursion
         return self.is_complete_binary(root.left, 2*index + 1, number_of_nodes) and self.is_complete_binary(root.right, 2*index + 2, number_of_nodes)
 
-    def search_binary_tree(self, value):
+    def search_binary_tree(self, root, value):
         # terminal state
-        if self.root is None:
+        if root is None:
             return None
         # match scenario
-        if self.root.value == value:
-            return self.root
+        if value == root.value:
+            return True
         # if we don't match, then we check the value of the node we are on to see which subtree we access
-        if value < self.root.value:
-            return self.search_binary_tree(self.root.left)
-        if value > self.root.value:
-            return self.search_binary_tree(self.root.right)
+        if value < root.value:
+            return self.search_binary_tree(root.left, value)
+        if value > root.value:
+            return self.search_binary_tree(root.right, value)
+        return False
 
 if __name__ == '__main__':
     # initialise a tree

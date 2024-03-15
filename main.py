@@ -114,13 +114,13 @@ class Tree:
             return None
         # match scenario
         if value == root.value:
-            return root
+            return True
         # if we don't match, then we check the value of the node we are on to see which subtree we access
         if value < root.value:
             return self.search_binary_tree(root.left, value)
         if value > root.value:
             return self.search_binary_tree(root.right, value)
-        return None
+        return False
 
     def insert_binary_tree(self, root, value):
         # terminal state is when we reach a leaf node that is null.
@@ -134,7 +134,41 @@ class Tree:
             root.right = self.insert_binary_tree(root.right, value)
         return root
 
-    def delete_binary_tree(self, node):
+    def inorder_successor(self, root):
+        # helper function to find the next inorder value given a root
+        current = root
+
+        while current.left is not None:
+            current = current.left
+
+        return current
+
+    def delete_binary_tree(self, root, value):
+        # define terminal case - when tree is empty
+        if root is None:
+            return root
+
+        # find the node to be deleted
+        if value < root.value:
+            root.left = self.delete_binary_tree(root.left, value)
+        elif value > root.value:
+            root.right = self.delete_binary_tree(root.right, value)
+        else:
+            # if the node is with only one child or no child
+            if root.left is None:
+                temp = root.right
+                return temp
+            if root.right is None:
+                temp = root.left
+                root = temp
+                return temp
+            # if the node has two children, insert inorder successor into node to be deleted
+            temp = self.inorder_successor(root.right)
+            root.value = temp.value
+
+            # delete the inorder successor
+            self.delete_binary_tree(root.right, temp.value)
+        return root
 
 if __name__ == '__main__':
     # initialise a tree
@@ -168,3 +202,7 @@ if __name__ == '__main__':
 
     bst.root.left.right.left = Node(4)
     bst.root.left.right.right = Node(7)
+
+bst.print_helper(bst.root,'',True)
+bst.delete_binary_tree(bst.root,3)
+bst.print_helper(bst.root,'',True)

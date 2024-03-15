@@ -1,5 +1,6 @@
 """ Implementation of Tree data structures in Python """
 import sys
+from collections import deque
 class Node:
     def __init__(self, value):
         self.value = value
@@ -23,6 +24,90 @@ class Tree:
             self.print_helper(currPtr.left, indent, False)
             self.print_helper(currPtr.right, indent, True)
 
+    def inorder(self, root):
+        # starting with the root as the input, we traverse to left subtree first
+        if root:
+            self.inorder(root.left)
+            # this recursion repeats until there is no more left subtrees
+            # in this case, we will take the value out of the root
+            print(str(root.value) + '->', end='')
+            self.inorder(root.right)
+
+    def preorder(self, root):
+        if root:
+            print(str(root.value) + '->', end='')
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(str(root.value) + '->', end='')
+
+    def is_full_binary(self, root):
+        # empty tree case
+        if root is None:
+            return True
+        # if child is not present, then return True
+        if root.left is None and root.right is None:
+            return True
+
+        # if child is present, we want to keep recursing
+        if root.left is not None and root.right is not None:
+            return self.is_full_binary(root.left) and self.is_full_binary(root.right)
+
+        return False
+
+    def calculate_height(self, node):
+        # helper function to calculate height of a node in a tree, assuming tree is perfect
+        h = 0
+        while node.left is not None:
+            h += 1
+            node = node.left
+        return h
+
+    def is_perfect_binary(self, root, height, level=0):
+        # empty tree case
+        if root is None:
+            return False
+        print(f'height={height}, we are at level={level} checking root of value {root.value}' )
+
+        # check for no children. the recursion loop works through each 'layer' of the tree and if we find that the
+        # the level does not equal the height, then the leaf nodes are not all on the same level
+        if root.left is None and root.right is None:
+            print('node has no children, checking if height equals level')
+            return height == level
+
+        # check for if only one children. Regardless of other subtrees, this automatically fails
+        if root.left is None or root.right is None:
+            print('one child is null')
+            return False
+
+        # remaining scenario is where there are subtrees in both, so repeat the previous
+        return self.is_perfect_binary(root.left, height, level+1) and self.is_perfect_binary(root.right, height, level+1)
+
+    def count_nodes(self, root):
+        # define terminal state
+        if root is None:
+            return 0
+        return 1 + self.count_nodes(root.left) + self.count_nodes(root.right)
+
+    def is_complete_binary(self, root, index, number_of_nodes):
+        # define terminal state when tree empty
+        if root is None:
+            return True
+        if index >= number_of_nodes:
+            # the resulting index should never exceed the number of nodes
+            return False
+        # if there is a break in children where left is none and right is not, then we break
+        if root.left is None and root.right is not None:
+            return False
+        # then, we make use of the fact that the for the ith element of the array that populates the tree,
+        # the left child has index 2i+1 and the right child has index 2i+2
+        # these can then be recursively fed in until we assign a value that is null to the input of the recursion
+        return self.is_complete_binary(root.left, 2*index + 1, number_of_nodes) and self.is_complete_binary(root.right, 2*index + 2, number_of_nodes)
+
 
 if __name__ == '__main__':
     # initialise a tree
@@ -42,9 +127,3 @@ if __name__ == '__main__':
     x.root.left = second
     x.root.right = third
     second.left = fourth
-    second.right = fifth
-    third.left = sixth
-    third.right = seventh
-
-
-x.print_helper(x.root, "", True)

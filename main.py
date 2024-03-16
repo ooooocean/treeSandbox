@@ -203,6 +203,3 @@ if __name__ == '__main__':
     bst.root.left.right.left = Node(4)
     bst.root.left.right.right = Node(7)
 
-bst.print_helper(bst.root,'',True)
-bst.delete_binary_tree(bst.root,3)
-bst.print_helper(bst.root,'',True)

@@ -130,3 +130,25 @@ def test_is_complete_binary():
     x.root.right.left = None
     x.root.right.right = None
     assert x.is_complete_binary(x.root, 0, x.count_nodes(x.root)) is True
+
+@pytest.fixture
+def binary_search_tree():
+    # initialise a bst
+    bst = main.Tree()
+    bst.root = main.Node(8)
+
+    bst.root.left = main.Node(3)
+    bst.root.right = main.Node(10)
+
+    bst.root.left.left = main.Node(1)
+    bst.root.left.right = main.Node(6)
+    bst.root.right.right = main.Node(14)
+
+    bst.root.left.right.left = main.Node(4)
+    bst.root.left.right.right = main.Node(7)
+
+    return bst
+
+
+
+
